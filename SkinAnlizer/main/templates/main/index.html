@@ -40,11 +40,14 @@
                 myDropzone = this;
 
                 submitButton.addEventListener("click", function() {
+                    console.log("add files")
                     myDropzone.processQueue();
                     // Tell Dropzone to process all queued files.
                 });
                 removeButton.addEventListener("click", function() {
+                    console.log("remove files");
                     var myFiles = myDropzone.files.getUploadingFiles();
+                    console.log(myFiles);
                     for (var file in myFiles) {
                         myDropzone.removeFile(file);
                     }
