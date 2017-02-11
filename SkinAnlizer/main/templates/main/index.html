@@ -11,7 +11,7 @@
 <body>
 
     <!-- IMPORTANT enctype attribute! -->
-    <form class="dropzone" action="{% url " main:index " %}" method="post" enctype="multipart/form-data">
+    <form class="dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
     </form>
     <button id="submit-all">
