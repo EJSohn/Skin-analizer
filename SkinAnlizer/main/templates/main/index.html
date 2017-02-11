@@ -27,40 +27,43 @@
 
     <script src="{% static 'main/js/dropzone.js' %}"></script>
     <script type="text/javascript">
-        Dropzone.options.myDropzone = {
-            paramName: "file",
-            // Prevents Dropzone from uploading dropped files immediately
-            autoProcessQueue: false,
-            accept: function(file, done) {
-                done("Upload complete");
-            },
-            init: function() {
-                var submitButton = document.querySelector("#submit-all");
-                var removeButton = document.querySelector("#remove-all");
-                myDropzone = this;
+        $(document).ready(function() {
 
-                submitButton.addEventListener("click", function() {
-                    console.log("add files")
-                    myDropzone.processQueue();
-                    // Tell Dropzone to process all queued files.
-                });
-                removeButton.addEventListener("click", function() {
-                    console.log("remove files");
-                    var myFiles = myDropzone.files.getUploadingFiles();
-                    console.log(myFiles);
-                    for (var file in myFiles) {
-                        myDropzone.removeFile(file);
-                    }
-                });
+            Dropzone.options.myAwesomeDropzone = {
+                paramName: "file",
+                // Prevents Dropzone from uploading dropped files immediately
+                autoProcessQueue: false,
+                accept: function(file, done) {
+                    done("Upload complete");
+                },
+                init: function() {
+                    var submitButton = document.querySelector("#submit-all");
+                    var removeButton = document.querySelector("#remove-all");
+                    myDropzone = this;
 
-                // You might want to show the submit button only when
-                // files are dropped here:
-                this.on("addedfile", function() {
-                    // Show submit button here and/or inform user to click it.
-                });
+                    submitButton.addEventListener("click", function() {
+                        console.log("add files")
+                        myDropzone.processQueue();
+                        // Tell Dropzone to process all queued files.
+                    });
+                    removeButton.addEventListener("click", function() {
+                        console.log("remove files");
+                        var myFiles = myDropzone.files.getUploadingFiles();
+                        console.log(myFiles);
+                        for (var file in myFiles) {
+                            myDropzone.removeFile(file);
+                        }
+                    });
 
-            }
-        };
+                    // You might want to show the submit button only when
+                    // files are dropped here:
+                    this.on("addedfile", function() {
+                        // Show submit button here and/or inform user to click it.
+                    });
+
+                }
+            };
+        });
     </script>
 </body>
 
