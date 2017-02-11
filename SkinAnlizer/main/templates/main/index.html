@@ -3,59 +3,66 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Upload a file in Django 1.5 using Dropzone.js</title>
+    <title></title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/dropzone.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}" />
 </head>
 
 <body>
+    <!-- left-side div -->
+    <div class="banner-class">
 
-    <!-- IMPORTANT enctype attribute! -->
-    <form class="dropzone" id="my-awesome-dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="fallback">
-            <input name="file" type="file" />
-        </div>
-    </form>
-    <br><br>
-    <center>
-        <button id="submit-all">
-                Submit all files
-        </button>
-    </center>
+    </div>
 
-    <script src="{% static 'main/js/dropzone.js' %}"></script>
-    <script src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
+    <!-- right-side div -->
+    <div class="dropdown-class">
+        <!-- IMPORTANT enctype attribute! -->
+        <form class="dropzone" id="my-awesome-dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="fallback">
+                <input name="file" type="file" />
+            </div>
+        </form>
+        <br><br>
+        <center>
+            <button id="submit-all">
+                    Submit all files
+            </button>
+        </center>
 
-    <script type="text/javascript">
-        Dropzone.options.myAwesomeDropzone = {
-            paramName: "file",
-            // Prevents Dropzone from uploading dropped files immediately
-            autoProcessQueue: false,
-            init: function() {
-                var submitButton = document.querySelector("#submit-all");
-                myDropzone = this;
+        <script src="{% static 'main/js/dropzone.js' %}"></script>
+        <script src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
 
-                submitButton.addEventListener("click", function() {
-                    console.log("add files")
-                    myDropzone.processQueue();
-                    // Tell Dropzone to process all queued files.
-                });
+        <script type="text/javascript">
+            Dropzone.options.myAwesomeDropzone = {
+                paramName: "file",
+                // Prevents Dropzone from uploading dropped files immediately
+                autoProcessQueue: false,
+                init: function() {
+                    var submitButton = document.querySelector("#submit-all");
+                    myDropzone = this;
 
-                // You might want to show the submit button only when
-                // files are dropped here:
-                myDropzone.on("addedfile", function() {
-                    // Show submit button here and/or inform user to click it.
-                    alert("Added file.");
-                });
+                    submitButton.addEventListener("click", function() {
+                        console.log("add files")
+                        myDropzone.processQueue();
+                        // Tell Dropzone to process all queued files.
+                    });
 
-                myDropzone.on("complete", function(file) {
-                    myDropzone.removeFile(file);
-                });
-            }
-        };
-    </script>
+                    // You might want to show the submit button only when
+                    // files are dropped here:
+                    myDropzone.on("addedfile", function() {
+                        // Show submit button here and/or inform user to click it.
+                        alert("Added file.");
+                    });
+
+                    myDropzone.on("complete", function(file) {
+                        myDropzone.removeFile(file);
+                    });
+                }
+            };
+        </script>
+    </div>
 </body>
 
 </html>
