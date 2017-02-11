@@ -20,5 +20,5 @@ def index(request):
         form = UploadFileForm()
 
     data = {'form': form}
-    return render(request, 'main/index.html', data, content_type='application/xhtml+xml')
+    return render(request, 'main/index.html', data)
 
