@@ -11,12 +11,12 @@
 <body>
 
     <!-- IMPORTANT enctype attribute! -->
-    <form class="dropzone" action="{% url " main:dropImage " %}" method="post" enctype="multipart/form-data">
+    <form class="dropzone" action="{% url " main:index " %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
     </form>
     <button id="submit-all">
             Submit all files
-        </button>
+    </button>
 
     <script src="{% static 'main/js/dropzone.js' %}"></script>
     <script type="text/javascript">
