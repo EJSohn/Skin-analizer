@@ -6,12 +6,11 @@ body {
 .banner-class {
     max-width: 360px;
     width: 33.33333%;
+    height: 100%;
     float: left;
-    padding-left: 20px;
     padding-right: 20px;
-    padding-top: 2.5rem;
     display: block;
-    border: 1px black solid;
+    background-color: #028bf4;
 }
 
 .dropdown-class {
