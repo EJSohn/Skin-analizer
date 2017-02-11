@@ -11,7 +11,7 @@
 <body>
 
     <!-- IMPORTANT enctype attribute! -->
-    <form class="dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
+    <form class="dropzone" id="myDropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="fallback">
             <input name="file" type="file" multiple />
@@ -31,7 +31,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            Dropzone.options.myAwesomeDropzone = {
+            Dropzone.options.myDropzone = {
                 paramName: "file",
                 // Prevents Dropzone from uploading dropped files immediately
                 autoProcessQueue: false,
