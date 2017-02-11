@@ -8,6 +8,7 @@ body {
 .banner-class {
     height: 200px;
     display: block;
+    background-color: #028bf4;
 }
 
 .dropdown-class {
