@@ -7,6 +7,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/dropzone.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/bootstrap.min.css' %}" />
 </head>
 
 <body>
@@ -17,51 +18,51 @@
 
     <!-- right-side div -->
     <div class="dropdown-class">
-        <!-- IMPORTANT enctype attribute! -->
-        <form class="dropzone" id="my-awesome-dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="fallback">
-                <input name="file" type="file" />
-            </div>
-        </form>
-        <br><br>
         <center>
-            <button id="submit-all">
-                    Submit all files
-            </button>
+            <!-- IMPORTANT enctype attribute! -->
+            <form class="dropzone" id="my-awesome-dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="fallback">
+                    <input name="file" type="file" />
+                </div>
+            </form>
+            <br><br>
+            <center>
+                <button id="submit-all" type="button" class="btn btn-primary">Submit files</button>
+            </center>
+
+            <script src="{% static 'main/js/dropzone.js' %}"></script>
+            <script src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
+
+            <script type="text/javascript">
+                Dropzone.options.myAwesomeDropzone = {
+                    paramName: "file",
+                    // Prevents Dropzone from uploading dropped files immediately
+                    autoProcessQueue: false,
+                    init: function() {
+                        var submitButton = document.querySelector("#submit-all");
+                        myDropzone = this;
+
+                        submitButton.addEventListener("click", function() {
+                            console.log("add files")
+                            myDropzone.processQueue();
+                            // Tell Dropzone to process all queued files.
+                        });
+
+                        // You might want to show the submit button only when
+                        // files are dropped here:
+                        myDropzone.on("addedfile", function() {
+                            // Show submit button here and/or inform user to click it.
+                            alert("Added file.");
+                        });
+
+                        myDropzone.on("complete", function(file) {
+                            myDropzone.removeFile(file);
+                        });
+                    }
+                };
+            </script>
         </center>
-
-        <script src="{% static 'main/js/dropzone.js' %}"></script>
-        <script src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
-
-        <script type="text/javascript">
-            Dropzone.options.myAwesomeDropzone = {
-                paramName: "file",
-                // Prevents Dropzone from uploading dropped files immediately
-                autoProcessQueue: false,
-                init: function() {
-                    var submitButton = document.querySelector("#submit-all");
-                    myDropzone = this;
-
-                    submitButton.addEventListener("click", function() {
-                        console.log("add files")
-                        myDropzone.processQueue();
-                        // Tell Dropzone to process all queued files.
-                    });
-
-                    // You might want to show the submit button only when
-                    // files are dropped here:
-                    myDropzone.on("addedfile", function() {
-                        // Show submit button here and/or inform user to click it.
-                        alert("Added file.");
-                    });
-
-                    myDropzone.on("complete", function(file) {
-                        myDropzone.removeFile(file);
-                    });
-                }
-            };
-        </script>
     </div>
 </body>
 
