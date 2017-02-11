@@ -1,0 +1,12 @@
+python 2.7.13
+
+apt-get
+python-pip 
+python-dev 
+build-essential 
+git 
+sqlite3  
+libsqlite3-dev 
+
+pip
+Django==1.10.5
