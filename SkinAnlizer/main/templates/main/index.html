@@ -14,7 +14,7 @@
     <form class="dropzone" id="myDropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="fallback">
-            <input name="file" type="file" multiple />
+            <input name="file" type="file" />
         </div>
     </form>
     <button id="submit-all">
@@ -61,6 +61,7 @@
                     // files are dropped here:
                     this.on("addedfile", function() {
                         // Show submit button here and/or inform user to click it.
+                        alert("Added file.");
                     });
 
                 }
