@@ -17,8 +17,8 @@
     </div>
 
     <!-- right-side div -->
-    <div class="dropdown-class">
-        <center>
+    <center>
+        <div class="dropdown-class">
             <!-- IMPORTANT enctype attribute! -->
             <form class="dropzone" id="my-awesome-dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -62,8 +62,8 @@
                     }
                 };
             </script>
-        </center>
-    </div>
+        </div>
+    </center>
 </body>
 
 </html>
