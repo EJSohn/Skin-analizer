@@ -13,6 +13,9 @@
     <!-- IMPORTANT enctype attribute! -->
     <form class="dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+        </div>
     </form>
     <button id="submit-all">
             Submit all files
@@ -21,7 +24,7 @@
     <script src="{% static 'main/js/dropzone.js' %}"></script>
     <script type="text/javascript">
         Dropzone.options.myDropzone = {
-
+            paramName: "file",
             // Prevents Dropzone from uploading dropped files immediately
             autoProcessQueue: false,
 
