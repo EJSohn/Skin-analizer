@@ -21,20 +21,33 @@
             Submit all files
     </button>
 
+    <button id="remove-all">
+            Remove all files
+    </button>
+
     <script src="{% static 'main/js/dropzone.js' %}"></script>
     <script type="text/javascript">
         Dropzone.options.myDropzone = {
             paramName: "file",
             // Prevents Dropzone from uploading dropped files immediately
             autoProcessQueue: false,
-
+            accept: function(file, done) {
+                done("Upload complete");
+            },
             init: function() {
-                var submitButton = document.querySelector("#submit-all")
+                var submitButton = document.querySelector("#submit-all");
+                var removeButton = document.querySelector("#remove-all");
                 myDropzone = this;
 
                 submitButton.addEventListener("click", function() {
                     myDropzone.processQueue();
                     // Tell Dropzone to process all queued files.
+                });
+                removeButton.addEventListener("click", function() {
+                    var myFiles = myDropzone.files.getUploadingFiles();
+                    for (var file in myFiles) {
+                        myDropzone.removeFile(file);
+                    }
                 });
 
                 // You might want to show the submit button only when
