@@ -13,7 +13,7 @@ def index(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            new_file = UploadFile(file = request.FILES('file'))
+            new_file = UploadFile(file = request.FILES['file'])
             new_file.save()
             return HttpResponseRedirect(reverse('main:index'))
     else :
