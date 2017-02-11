@@ -527,5 +527,6 @@
     border: 2px dashed #0087F7;
     border-radius: 5px;
     background: white;
-    color: #646C7F
+    color: #646C7F;
+    font-size: 25px;
 }
