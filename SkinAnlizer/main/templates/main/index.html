@@ -122,7 +122,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Recommend</button>
+                            <button type="button" class="btn btn-primary" id="survey-button">Next</button>
                         </div>
                     </div>
                 </div>
@@ -136,6 +136,16 @@
                 $('#myModal').on('shown.bs.modal', function() {
                     $('#myInput').focus()
                 })
+
+                $(".q-2").hide();
+                $("#survey-button").click(function() {
+                    if (("#survey-button").val() == "") {
+                        $(".q-1").hide();
+                        $(".q-2").show();
+                    } else {
+                        console.log("tata");
+                    }
+                });
 
                 Dropzone.options.myAwesomeDropzone = {
                     paramName: "file",
