@@ -122,7 +122,7 @@
 
                             <div class="recommend">
                                 <center>
-                                    <img src="{% static 'main/images/tonimori.jpg' %}" />
+                                    <img src="{% static 'main/images/tonimori.jpg' %}" width="300" />
                                 </center>
                             </div>
                         </div>
@@ -163,6 +163,7 @@
                         $("#survey-button").html("Recommend");
                     } else {
                         $(".q-2").hide();
+                        $("#survey-button").hide();
                         $(".recommend").show();
                     }
                 });
