@@ -28,10 +28,11 @@
             </form>
             <br>
             <center>
-                <p class="lead">TYPE : UnKnown</p>
+                <p class="lead">TYPE : <span id="r_pred">UnKnown</span></p>
                 <button id="submit-all" type="button" class="btn btn-primary">Submit files</button>
                 <button id="next" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Next</button>
             </center>
+            <div id="foo"></div>
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -122,8 +123,10 @@
 
                             <div class="recommend">
                                 <center>
+                                    <!-- put p tag here.  -->
                                     <img src="{% static 'main/images/tonimori.jpg' %}" width="300" />
                                 </center>
+
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -137,7 +140,7 @@
             <script src="{% static 'main/js/dropzone.js' %}"></script>
             <script src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
             <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-
+            <script src="{% static 'main/js/spin.min.js' %}"></script>
             <script type="text/javascript">
                 $('#myModal').on('shown.bs.modal', function() {
                     $('#myInput').focus()
@@ -150,6 +153,7 @@
                     $(".q-1").show();
                     $(".q-2").hide();
                     $(".recommend").hide();
+                    $("#r_pred").html("UnKnown");
 
                     $("#survey-button").show();
                     $("#survey-button").val("");
@@ -179,8 +183,36 @@
 
                         submitButton.addEventListener("click", function() {
                             console.log("add files")
+                            var opts = {
+                              lines: 13 // The number of lines to draw
+                            , length: 28 // The length of each line
+                            , width: 14 // The line thickness
+                            , radius: 42 // The radius of the inner circle
+                            , scale: 1 // Scales overall size of the spinner
+                            , corners: 1 // Corner roundness (0..1)
+                            , color: '#000' // #rgb or #rrggbb or array of colors
+                            , opacity: 0.25 // Opacity of the lines
+                            , rotate: 0 // The rotation offset
+                            , direction: 1 // 1: clockwise, -1: counterclockwise
+                            , speed: 1 // Rounds per second
+                            , trail: 60 // Afterglow percentage
+                            , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                            , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                            , className: 'spinner' // The CSS class to assign to the spinner
+                            , top: '50%' // Top position relative to parent
+                            , left: '50%' // Left position relative to parent
+                            , shadow: false // Whether to render a shadow
+                            , hwaccel: false // Whether to use hardware acceleration
+                            , position: 'absolute' // Element positioning
+                            }
+                            var target = document.getElementById('foo')
+                            var spinner = new Spinner(opts).spin(target);
                             myDropzone.processQueue();
                             // Tell Dropzone to process all queued files.
+                            setTimeout(function(){
+                                spinner.stop();
+                                $("#r_pred").html("1");
+                            }, 3000);
                         });
 
                         // You might want to show the submit button only when

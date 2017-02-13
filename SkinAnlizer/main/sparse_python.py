@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 
+import cPickle
 import numpy as np
 import random
 import math
@@ -412,11 +413,14 @@ def model_svm(data, labels, L=1.):
 	clf.fit(data, labels)
 	y_pred = clf.predict(data)
 	
-	tmp = dict()
-	tmp['y_pred'] = y_pred
-	tmp['model']  = clf
+	with open('/home/ljh/SC/git-repository/clf.pkl', 'wb' ) as fid:
+		cPickle.dump(clf, fid)
 
-	return tmp
+	#tmp = dict()
+	#tmp['y_pred'] = y_pred
+	#tmp['model']  = clf
+
+	return y_pred
 
 
 def run():
@@ -428,8 +432,8 @@ def run():
 	trainY = trainY.astype('float64')
 
 	rfSize = 6
-	numBases   = int(input("Enter the number of Dictionary basis: "))
-	numPatches = int(input("Enter the number of Patches: "))
+	numBases   = 100      #int(input("Enter the number of Dictionary basis: "))
+	numPatches = 10000    # int(input("Enter the number of Patches: "))
 	SKIN_DIM = [32, 32, 3]
 	alpha = 0.25
 	lambd = 1.0
@@ -461,15 +465,14 @@ def run():
 	M        = ZCA_dict['M']
 	W        = ZCA_dict['W']
 	
-	
 	dictionary = run_sc(patches, numBases, 10, lambd)
 
 	#W, M whitening dict으로 받음
-        #C    = np.dot(patches.T, patches)
-        #M    = np.mean(patches, 0)
-        #d, V = np.linalg.eig(C)
-        #D    = np.diag(1. / np.sqrt(d+0.1))
-        #W    = np.dot(np.dot(V, D), V.T)
+     #C    = np.dot(patches.T, patches)
+     #M    = np.mean(patches, 0)
+     #d, V = np.linalg.eig(C)
+     #D    = np.diag(1. / np.sqrt(d+0.1))
+     #W    = np.dot(np.dot(V, D), V.T)
 
 	trainXC       = extract_features(trainX, dictionary, rfSize, SKIN_DIM, M, W, lambd)
 	trainXC_mean  = np.mean(trainXC, 0)
@@ -479,11 +482,10 @@ def run():
 	trainXCs   = bsxfunc_row("divide", tmp, trainXC_sd)
 	
 	# def predict_y(data, labels, L):
-	svm_dict = dict()
-	svm_dict = model_svm(trainXCs, trainY, L)
+	#svm_dict = dict()
+	#svm_dict = model_svm(trainXCs, trainY, L)
 	
-	y_pred = svm_dict['y_pred']
-	modle  = svm_dict['model']
+	y_pred = model_svm(trainXCs, trainY, L)
 	
 	# 학습 정확도 확인
 	print accuracy_score(trainY, y_pred)
@@ -501,8 +503,11 @@ def run():
 	for_test_dict['lambd']        = lambd
 	for_test_dict['trainXC_mean'] = trainXC_mean
 	for_test_dict['trainXC_sd']   = trainXC_sd
-	for_test_dict['model']        = model 
+	#for_test_dict['model']        = model 
 	
+	with open('/home/ljh/SC/git-repository/for_test_dict.pkl', 'wb') as fid:
+		cPickle.dump(for_test_dict, fid)
+
 	return for_test_dict  
 	
 #def DB_connect():

@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 
 from forms import UploadFileForm
 from models import UploadFile
+from sparse_test import run_test
 
 # Create your views here.
 
@@ -15,10 +16,13 @@ def index(request):
         if form.is_valid():
             new_file = UploadFile(file = request.FILES['file'])
             new_file.save()
-            return HttpResponseRedirect(reverse('main:index'))
+            r_pred = run_test()
+            data = {'r_pred':r_pred}
+            #return render(request, 'main/index2.html', data)
     else :
         form = UploadFileForm()
 
-    data = {'form': form}
+    data = {'form': form, 'r_pred':'UnKnown'}
+
     return render(request, 'main/index.html', data)
 

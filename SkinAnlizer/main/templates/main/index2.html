@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/dropzone.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/bootstrap.min.css' %}" />
+</head>
+
+<body>
+    <!-- left-side div -->
+    <div class="banner-class">
+        <p class="lead" id="banner" style="color:white; font-size: 50px; margin: 0 10px;">Skin Analizer</p>
+    </div>
+
+    <!-- right-side div -->
+    <center>
+        <div class="dropdown-class">
+            <!-- IMPORTANT enctype attribute! -->
+            <form class="dropzone" id="my-awesome-dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="fallback">
+                    <input name="file" type="file" />
+                </div>
+            </form>
+            <br>
+            <center>
+                <p class="lead">TYPE : {{ r_pred }}</p>
+                <button id="submit-all" type="button" class="btn btn-primary">Submit files</button>
+                <button id="next" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Next</button>
+            </center>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="q-1">
+                                <p class="lead">Gender?</p>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">Male
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" value="">Female
+                                    </label>
+                                </div>
+
+                                <p class="lead">Age?</p>
+                                <select multiple class="form-control">
+                                        <option>20</option><option>21</option><option>22</option>
+                                        <option>23</option><option>24</option><option>25</option>
+                                        <option>26</option><option>27</option><option>28</option>
+                                        <option>29</option><option>30</option><option>31</option>
+                                        <option>32</option><option>33</option><option>34</option>
+                                        <option>35</option><option>36</option><option>37</option>
+                                </select>
+                                <p class="lead">Atopy?</p>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">Yes
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">No
+                                    </label>
+                                </div>
+                                <p class="lead">Allergy?</p>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">Yes
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">No
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="q-2">
+                                <p class="lead">Sunlight time?</p>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" value="">Less than 1 hour 
+                                </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" value="">1~2 hour
+                                </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" value="">2~3 hour
+                                </label>
+                                </div>
+
+                                <p class="lead">Wrinkle?</p>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" value="">Yes
+                                </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" value="">No
+                                </label>
+                                </div>
+                            </div>
+
+                            <div class="recommend">
+                                <center>
+                                    <img src="{% static 'main/images/tonimori.jpg' %}" width="300" />
+                                </center>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
+                            <button type="button" class="btn btn-primary" id="survey-button" val="">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="{% static 'main/js/dropzone.js' %}"></script>
+            <script src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
+            <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+
+            <script type="text/javascript">
+                $('#myModal').on('shown.bs.modal', function() {
+                    $('#myInput').focus()
+                })
+
+                $(".q-2").hide();
+                $(".recommend").hide();
+
+                $("#close").click(function() {
+                    $(".q-1").show();
+                    $(".q-2").hide();
+                    $(".recommend").hide();
+
+                    $("#survey-button").show();
+                    $("#survey-button").val("");
+                    $("#survey-button").html("Next");
+                });
+
+                $("#survey-button").click(function() {
+                    if ($("#survey-button").val() == "") {
+                        $(".q-1").hide();
+                        $(".q-2").show();
+                        $("#survey-button").val("done");
+                        $("#survey-button").html("Recommend");
+                    } else {
+                        $(".q-2").hide();
+                        $("#survey-button").hide();
+                        $(".recommend").show();
+                    }
+                });
+
+                Dropzone.options.myAwesomeDropzone = {
+                    paramName: "file",
+                    // Prevents Dropzone from uploading dropped files immediately
+                    autoProcessQueue: false,
+                    init: function() {
+                        var submitButton = document.querySelector("#submit-all");
+                        myDropzone = this;
+
+                        submitButton.addEventListener("click", function() {
+                            console.log("add files")
+                            myDropzone.processQueue();
+                            // Tell Dropzone to process all queued files.
+                        });
+
+                        // You might want to show the submit button only when
+                        // files are dropped here:
+                        myDropzone.on("addedfile", function() {
+                            // Show submit button here and/or inform user to click it.
+                            alert("Added file.");
+                        });
+
+                        myDropzone.on("complete", function(file) {
+                            myDropzone.removeFile(file);
+                        });
+                    }
+                };
+            </script>
+        </div>
+    </center>
+</body>
+
+</html>
