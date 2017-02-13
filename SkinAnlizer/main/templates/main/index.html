@@ -119,6 +119,12 @@
                                 </label>
                                 </div>
                             </div>
+
+                            <div class="recommend">
+                                <center>
+                                    <img src="{% static 'main/images/tonimori.jpg' %}" />
+                                </center>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
@@ -138,22 +144,26 @@
                 })
 
                 $(".q-2").hide();
+                $(".recommend").hide();
+
                 $("#close").click(function() {
                     $(".q-1").show();
                     $(".q-2").hide();
+                    $(".recommend").hide();
+
                     $("#survey-button").val("");
                     $("#survey-button").html("Next");
                 });
 
                 $("#survey-button").click(function() {
-                    console.log($("#survey-button").val());
                     if ($("#survey-button").val() == "") {
                         $(".q-1").hide();
                         $(".q-2").show();
                         $("#survey-button").val("done");
                         $("#survey-button").html("Recommend");
                     } else {
-                        console.log("tata");
+                        $(".q-2").hide();
+                        $(".recommend").show();
                     }
                 });
 
