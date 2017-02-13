@@ -141,6 +141,8 @@
                 $("#close").click(function() {
                     $(".q-1").show();
                     $(".q-2").hide();
+                    $("#survey-button").val("");
+                    $("#survey-button").html("Next");
                 });
 
                 $("#survey-button").click(function() {
@@ -148,6 +150,8 @@
                     if ($("#survey-button").val() == "") {
                         $(".q-1").hide();
                         $(".q-2").show();
+                        $("#survey-button").val("done");
+                        $("#survey-button").html("Recommend");
                     } else {
                         console.log("tata");
                     }
