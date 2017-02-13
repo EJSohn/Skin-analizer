@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
                             <button type="button" class="btn btn-primary" id="survey-button" val="">Next</button>
                         </div>
                     </div>
@@ -138,7 +138,13 @@
                 })
 
                 $(".q-2").hide();
+                $("#close").click(function() {
+                    $(".q-1").show();
+                    $(".q-2").hide();
+                });
+
                 $("#survey-button").click(function() {
+                    console.log($("#survey-button").val());
                     if ($("#survey-button").val() == "") {
                         $(".q-1").hide();
                         $(".q-2").show();
