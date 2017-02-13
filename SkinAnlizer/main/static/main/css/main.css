@@ -24,3 +24,8 @@ body {
 p {
     margin: 10px 0 10px !important;
 }
+
+.banner-p {
+    color: white;
+    font-size: 50px;
+}
