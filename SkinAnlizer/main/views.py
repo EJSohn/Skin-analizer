@@ -29,6 +29,6 @@ def index(request):
     return render(request, 'main/index.html', data)
 
 def result(request):
-    r_pred = run_test()
+    r_pred =int(run_test())
     data = {'r_pred':r_pred}
     return render(request, 'main/index2.html', data)

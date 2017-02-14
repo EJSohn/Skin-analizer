@@ -22,8 +22,8 @@ log.setLevel(logging.INFO)
 def run_test():
 		
 	#DB에서 data뽑기 
-	testX = np.loadtxt('testX.txt', delimiter=',')  ############### input에 맞게 고치기
-	testY = np.loadtxt('testY.txt', delimiter=',')
+	testX = np.loadtxt('/home/ljh/SC/git-repository/SkinAnlizer/main/testX.txt', delimiter=',')  ############### input에 맞게 고치기
+	testY = np.loadtxt('/home/ljh/SC/git-repository/SkinAnlizer/main/testY.txt', delimiter=',')
 	
 	testX = testX.astype('float64')
 	testY = testY.astype('float64')
