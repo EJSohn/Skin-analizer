@@ -11,6 +11,7 @@ from sparse_test import run_test
 # Create your views here.
 
 def index(request):
+    '''
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -22,8 +23,12 @@ def index(request):
             #return render(request, 'main/index2.html', data)
     else :
         form = UploadFileForm()
-
+    '''
+    form = UploadFileForm()
     data = {'form': form, 'r_pred':'UnKnown'}
-
     return render(request, 'main/index.html', data)
 
+def result(request):
+    r_pred = run_test()
+    data = {'r_pred':r_pred}
+    return render(request, 'main/index2.html', data)
