@@ -13,26 +13,22 @@
 <body>
     <!-- left-side div -->
     <div class="banner-class">
-        <p class="lead" id="banner" style="color:white; font-size: 50px; margin: 0 10px;">Skin Analizer</p>
+        <a href="/main">
+            <p class="lead" id="banner" style="color:white; font-size: 50px; margin: 0 10px;">Skin Analizer v.01</p>
+        </a>
     </div>
 
     <!-- right-side div -->
     <center>
         <div class="dropdown-class">
             <!-- IMPORTANT enctype attribute! -->
-            <form class="dropzone" id="my-awesome-dropzone" action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="fallback">
-                    <input name="file" type="file" />
-                </div>
-            </form>
             <br>
             <center>
-                <p class="lead">TYPE : {{ r_pred }}</p>
-                <button id="submit-all" type="button" class="btn btn-primary">Submit files</button>
-                <button id="next" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Next</button>
+                <p class="lead" id="result_pred" style="font-size:50px;">TYPE : {{ r_pred }}</p><br><br><br>
+                <button id="next" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Recommend</button>
             </center>
 
+            <div id="foo"></div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -137,6 +133,7 @@
             <script src="{% static 'main/js/dropzone.js' %}"></script>
             <script src="{% static 'main/js/jquery-3.1.1.min.js' %}"></script>
             <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+            <script src="{% static 'main/js/spin.min.js' %}"></script>
 
             <script type="text/javascript">
                 $('#myModal').on('shown.bs.modal', function() {
@@ -145,6 +142,7 @@
 
                 $(".q-2").hide();
                 $(".recommend").hide();
+                $("#result_pred").hide();
 
                 $("#close").click(function() {
                     $(".q-1").show();
@@ -169,32 +167,35 @@
                     }
                 });
 
-                Dropzone.options.myAwesomeDropzone = {
-                    paramName: "file",
-                    // Prevents Dropzone from uploading dropped files immediately
-                    autoProcessQueue: false,
-                    init: function() {
-                        var submitButton = document.querySelector("#submit-all");
-                        myDropzone = this;
-
-                        submitButton.addEventListener("click", function() {
-                            console.log("add files")
-                            myDropzone.processQueue();
-                            // Tell Dropzone to process all queued files.
-                        });
-
-                        // You might want to show the submit button only when
-                        // files are dropped here:
-                        myDropzone.on("addedfile", function() {
-                            // Show submit button here and/or inform user to click it.
-                            alert("Added file.");
-                        });
-
-                        myDropzone.on("complete", function(file) {
-                            myDropzone.removeFile(file);
-                        });
-                    }
-                };
+                var opts = {
+                  lines: 13 // The number of lines to draw
+                , length: 28 // The length of each line
+                , width: 14 // The line thickness
+                , radius: 42 // The radius of the inner circle
+                , scale: 1 // Scales overall size of the spinner
+                , corners: 1 // Corner roundness (0..1)
+                , color: '#000' // #rgb or #rrggbb or array of colors
+                , opacity: 0.25 // Opacity of the lines
+                , rotate: 0 // The rotation offset
+                , direction: 1 // 1: clockwise, -1: counterclockwise
+                , speed: 1 // Rounds per second
+                , trail: 60 // Afterglow percentage
+                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                , className: 'spinner' // The CSS class to assign to the spinner
+                , top: '50%' // Top position relative to parent
+                , left: '50%' // Left position relative to parent
+                , shadow: false // Whether to render a shadow
+                , hwaccel: false // Whether to use hardware acceleration
+                , position: 'absolute' // Element positioning
+                }
+                var target = document.getElementById('foo')
+                var spinner = new Spinner(opts).spin(target);
+                setTimeout(function(){
+                    spinner.stop();
+                    $("#result_pred").show();
+                }, 3000);
+                
             </script>
         </div>
     </center>
