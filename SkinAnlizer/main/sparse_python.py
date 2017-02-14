@@ -346,16 +346,28 @@ def run_sc(patches, numBases, iters, lambd):
 def extract_features(X, D, rfSize, SKIN_DIM, M, W, lambd):
 
 	numBases   = D.shape[0]
-	length_RGB = X.shape[1]/3
+	length_RGB = 1024
 	
-	XC = np.zeros((X.shape[0], numBases*2*4))
+	#XC = np.zeros((X.shape[0], numBases*2*4))
+	
+	if(X.shape[0] == 3072):
+		XC = np.zeros((1, numBases*2*4))
+		X = np.reshape(X, [1, 3072])
+	else:
+		XC = np.zeros((X.shape[0], numBases*2*4))
+	
 	for i in range(X.shape[0]):
 		if ( i%1000 == 0):
 			print 'Extracting features: ', i, ' ', X.shape[0]
 		
-		first_tmp  = im2col(np.reshape(X[i, 0:length_RGB], SKIN_DIM[0:2], order='F'),                  [rfSize, rfSize])
-		second_tmp = im2col(np.reshape(X[i, length_RGB:(2*length_RGB)], SKIN_DIM[0:2], order='F'),     [rfSize, rfSize])
-		third_tmp  = im2col(np.reshape(X[i, (2*length_RGB):(3*length_RGB)], SKIN_DIM[0:2], order='F'), [rfSize, rfSize])		
+		if(X.shape[0] == 3072):
+			first_tmp  = im2col(np.reshape(X[0:length_RGB], SKIN_DIM[0:2], order='F'),                  [rfSize, rfSize])
+			second_tmp = im2col(np.reshape(X[length_RGB:(2*length_RGB)], SKIN_DIM[0:2], order='F'),     [rfSize, rfSize])
+			third_tmp  = im2col(np.reshape(X[(2*length_RGB):(3*length_RGB)], SKIN_DIM[0:2], order='F'), [rfSize, rfSize])
+		else:
+			first_tmp  = im2col(np.reshape(X[i, 0:length_RGB], SKIN_DIM[0:2], order='F'),                  [rfSize, rfSize])
+			second_tmp = im2col(np.reshape(X[i, length_RGB:(2*length_RGB)], SKIN_DIM[0:2], order='F'),     [rfSize, rfSize])
+			third_tmp  = im2col(np.reshape(X[i, (2*length_RGB):(3*length_RGB)], SKIN_DIM[0:2], order='F'), [rfSize, rfSize])		
 
 		#np.vstack 
 		patches = np.vstack((first_tmp, second_tmp, third_tmp))
@@ -497,7 +509,7 @@ def run():
 	for_test_dict = dict()
 	for_test_dict['dictionary']   = dictionary
 	for_test_dict['rfSize']       = rfSize
-	for_test_dict['SKIN_DIM']     = SKIN_DIN
+	for_test_dict['SKIN_DIM']     = SKIN_DIM
 	for_test_dict['M']            = M
 	for_test_dict['W']            = W
 	for_test_dict['lambd']        = lambd

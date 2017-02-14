@@ -31,6 +31,9 @@ def run_test():
 	testX = testX[5, :]
 	testY = testY[5]
 
+	#if(testX.shape[0] == 3072):
+	#	testX = np.reshape(testX, [1, 3072])
+
 	train_dic = dict()
 	with open('/home/ljh/SC/git-repository/for_test_dict.pkl', 'rb') as fid:
 		train_dic = cPickle.load(fid)
@@ -44,8 +47,8 @@ def run_test():
 	M             = train_dic['M']
 	W             = train_dic['W']
 	lambd         = train_dic['lambd']
-	trainXC_mean = total_dic['trainXC_mean'] 
-	trainXC_sd    = total_dic['trainXC_sd']
+	trainXC_mean = train_dic['trainXC_mean'] 
+	trainXC_sd    = train_dic['trainXC_sd']
 	#model         = total_dic['model']   
 	
 	#trainXC = extract_features(trainX, dictionary, rfSize, SKIN_DIM, M, W, lambd)
@@ -61,8 +64,10 @@ def run_test():
 	test_y_pred = clf_loaded.predict(testXCs) #################### <--- output
 	
 	# 학습 정확도 확인
-	print accuracy_score(testY, test_y_pred)
+	#print accuracy_score(testY, test_y_pred)
+	print test_y_pred
 	return test_y_pred
+	
 	# 클래스를 보여줄때 y_pred를 보여주면 됨.
 	
 if __name__=='__main__':
