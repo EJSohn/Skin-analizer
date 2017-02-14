@@ -18,6 +18,7 @@ def index(request):
             new_file.save()
             r_pred = run_test()
             data = {'r_pred':r_pred}
+            print r_pred
             #return render(request, 'main/index2.html', data)
     else :
         form = UploadFileForm()
