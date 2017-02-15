@@ -24,7 +24,9 @@
             <!-- IMPORTANT enctype attribute! -->
             <br>
             <center>
-                <p class="lead" id="result_pred" style="font-size:50px;">TYPE : {{ r_pred }}</p><br><br><br>
+		<p class="lead" id="result_pred" style="font-size:50px;">Estimated Skin Age : 25</p>
+		<p class="lead" id="result_pred" style="font-size:50px;">Oil Level      : 1</p>
+                <p class="lead" id="result_pred" style="font-size:50px;">Moisture Level : {{ r_pred }}</p><br><br>
                 <button id="next" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Recommend</button>
             </center>
 
@@ -35,7 +37,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            <h4 class="modal-title" id="myModalLabel">Recommend Result</h4>
                         </div>
                         <div class="modal-body">
 
@@ -118,7 +120,9 @@
 
                             <div class="recommend">
                                 <center>
-                                    <img src="{% static 'main/images/tonimori.jpg' %}" width="300" />
+				    <p>Your Skin Type is ... <br>How to care<br>Recommended Products</p>
+				    <img src="{% static 'main/images/recommendation.png' %}" width="300" /><br>
+                                    <img src="{% static 'main/images/tonimori.jpg' %}" width="300" /><br>
                                 </center>
                             </div>
                         </div>
